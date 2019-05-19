@@ -14,12 +14,11 @@ public class SomeConsumer {
   private final Logger log = LoggerFactory.getLogger(SomeConsumer.class);
 
   @Inject
-  Dispatcher dispatcher;
+  Dispatcher connection;
 
   @GET
   public String get() {
-    log.info("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    dispatcher.subscribe("product-analyze-topic");
+    log.info("Connection " + connection);
     return UUID.randomUUID().toString();
   }
 
