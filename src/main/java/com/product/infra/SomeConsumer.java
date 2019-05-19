@@ -2,7 +2,6 @@ package com.product.infra;
 
 import io.nats.client.Dispatcher;
 import java.util.UUID;
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,7 +14,6 @@ public class SomeConsumer {
   private final Logger log = LoggerFactory.getLogger(SomeConsumer.class);
 
   @Inject
-  @Default
   Dispatcher dispatcher;
 
   @GET

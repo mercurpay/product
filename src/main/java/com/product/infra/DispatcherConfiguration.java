@@ -8,15 +8,11 @@ import io.nats.client.Dispatcher;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
-import javax.annotation.Priority;
-import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Alternative
-@Priority(1)
 @Singleton
 public class DispatcherConfiguration implements Dispatcher {
 
