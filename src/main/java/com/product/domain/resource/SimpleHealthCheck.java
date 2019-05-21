@@ -1,4 +1,4 @@
-package com.product.domain;
+package com.product.domain.resource;
 
 import io.nats.client.Dispatcher;
 import javax.enterprise.context.ApplicationScoped;

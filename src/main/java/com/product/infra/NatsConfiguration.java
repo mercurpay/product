@@ -2,7 +2,7 @@ package com.product.infra;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.product.domain.Order;
-import com.product.domain.ProductService;
+import com.product.domain.service.ProductService;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
 import io.nats.client.Nats;
