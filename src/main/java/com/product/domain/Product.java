@@ -1,20 +1,13 @@
 package com.product.domain;
 
 import java.util.Objects;
-import org.jnosql.artemis.Column;
-import org.jnosql.artemis.Entity;
-import org.jnosql.artemis.Id;
 
-@Entity(value = "product")
 public class Product {
 
-  @Id
   private String id;
 
-  @Column
   private String name;
 
-  @Column
   private Integer quantity;
 
   public String getId() {
