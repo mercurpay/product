@@ -19,7 +19,7 @@ public class ProductService {
 
   public void analyzeOrder(final Order order) {
     log.info("Received {} to be analyzed", order);
-    // TODO
+    productRepository.deleteAll();
   }
 
   public Product get(String id) {
