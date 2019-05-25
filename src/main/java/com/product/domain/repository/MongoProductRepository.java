@@ -1,9 +1,15 @@
 package com.product.domain.repository;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.product.domain.Product;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -21,6 +27,9 @@ public class MongoProductRepository implements ProductRepository {
   @Inject
   MongoDatabase mongoDatabase;
 
+  @Inject
+  ObjectMapper objectMapper;
+
   @PostConstruct
   public void postConstruct() {
     productCollection = mongoDatabase.getCollection("product");
@@ -34,8 +43,25 @@ public class MongoProductRepository implements ProductRepository {
 
   @Override
   public Collection<Product> findAll() {
-    // TODO
-    return null;
+    log.info("Getting all products");
+    Collection<Product> products = new ArrayList<>();
+    MongoCursor<Document> iterator = productCollection.find().iterator();
+    try {
+      while (iterator.hasNext()) {
+        String json = iterator.next().toJson();
+        Product product = objectMapper.readValue(json, Product.class);
+        products.add(product);
+      }
+    } catch (JsonParseException e) {
+      e.printStackTrace();
+    } catch (JsonMappingException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      iterator.close();
+    }
+    return products;
   }
 
   @Override
