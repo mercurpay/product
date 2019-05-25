@@ -4,7 +4,6 @@ import com.product.domain.Product;
 import com.product.domain.event.AnalyzeOrderEvent;
 import com.product.domain.event.CrmEvent;
 import com.product.domain.repository.ProductRepository;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
 import javax.enterprise.context.ApplicationScoped;
@@ -34,7 +33,6 @@ public class ProductService {
         log.info("Product {} doest not have stock", product.getId());
         CrmEvent crmEvent = new CrmEvent();
         crmEvent.setType("PRODUCT-UNAVAILABLE");
-        crmEvent.getData().put("at", LocalDateTime.now().toString());
 
         crmService.notifyEvent(analyzeOrderEvent.getOrderId(), crmEvent);
       } else {
