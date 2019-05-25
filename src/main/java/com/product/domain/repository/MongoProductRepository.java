@@ -1,14 +1,11 @@
 package com.product.domain.repository;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.product.domain.Product;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.annotation.PostConstruct;
@@ -37,29 +34,21 @@ public class MongoProductRepository implements ProductRepository {
 
   @Override
   public Product findOne(String id) {
-    // TODO
-    return null;
+    log.info("Getting product {}", id);
+    Document document = productCollection.find(Filters.eq("_id", id)).first();
+    return toProduct(document);
   }
 
   @Override
   public Collection<Product> findAll() {
     log.info("Getting all products");
     Collection<Product> products = new ArrayList<>();
-    MongoCursor<Document> iterator = productCollection.find().iterator();
-    try {
+    try (MongoCursor<Document> iterator = productCollection.find().iterator()) {
       while (iterator.hasNext()) {
-        String json = iterator.next().toJson();
-        Product product = objectMapper.readValue(json, Product.class);
+        Document document = iterator.next();
+        Product product = toProduct(document);
         products.add(product);
       }
-    } catch (JsonParseException e) {
-      e.printStackTrace();
-    } catch (JsonMappingException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      iterator.close();
     }
     return products;
   }
@@ -81,6 +70,15 @@ public class MongoProductRepository implements ProductRepository {
   public void deleteOne(String id) {
     log.info("Deleting product {}", id);
     productCollection.deleteOne(Filters.eq("_id", id));
+  }
+
+  private Product toProduct(Document document) {
+    Product product = new Product();
+    product.setId(document.getString("_id"));
+    product.setName(document.getString("name"));
+    product.setQuantity(document.getInteger("quantity"));
+
+    return product;
   }
 
 }

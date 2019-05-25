@@ -1,12 +1,10 @@
 package com.product.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import org.bson.Document;
 
 public class Product {
 
-  @JsonProperty("_id")
   private String id;
 
   private String name;
