@@ -1,13 +1,14 @@
 package com.product.domain.resource;
 
 import com.product.domain.Product;
-import com.product.domain.resource.data.CreateProductRequest;
+import com.product.domain.resource.data.UpdateAndCreateProductRequest;
 import com.product.domain.service.ProductService;
 import java.util.Collection;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -40,9 +41,16 @@ public class ProductResource {
   }
 
   @POST
-  public Product createOne(CreateProductRequest payload) {
+  public Product createOne(UpdateAndCreateProductRequest payload) {
     log.info("Creating product {}", payload);
     return productService.create(payload.toProduct());
+  }
+
+  @PATCH
+  @Path("/{id}")
+  public Product createOne(@PathParam("id") String id, UpdateAndCreateProductRequest payload) {
+    log.info("Updating product {}", id);
+    return productService.update(id, payload.toProduct());
   }
 
   @DELETE

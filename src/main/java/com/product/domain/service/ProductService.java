@@ -37,6 +37,11 @@ public class ProductService {
     return productRepository.create(product);
   }
 
+  public Product update(String id, Product product) {
+    log.info("Creating product {}", id);
+    return productRepository.update(id, product);
+  }
+
   public void removeAll() {
     log.info("Removing all products");
     productRepository.deleteAll();

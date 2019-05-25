@@ -3,7 +3,7 @@ package com.product.domain.resource.data;
 import com.product.domain.Product;
 import java.util.UUID;
 
-public class CreateProductRequest {
+public class UpdateAndCreateProductRequest {
 
   private String name;
 

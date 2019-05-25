@@ -57,6 +57,16 @@ public class MongoProductRepository implements ProductRepository {
   }
 
   @Override
+  public Product update(String id, Product product) {
+    log.info("Updating {}", id);
+    Document document = new Document()
+        .append("$set", new Document("name", product.getName()))
+        .append("$set", new Document("quantity", product.getQuantity()));
+    productCollection.updateOne(Filters.eq("_id", id), document);
+    return null;
+  }
+
+  @Override
   public void deleteAll() {
     log.info("Deleting all products");
     productCollection.deleteMany(Filters.exists("_id"));
