@@ -1,6 +1,7 @@
 package com.product.domain;
 
 import java.util.Objects;
+import org.bson.Document;
 
 public class Product {
 
@@ -32,6 +33,13 @@ public class Product {
 
   public void setQuantity(Integer quantity) {
     this.quantity = quantity;
+  }
+
+  public Document toDocument() {
+    return new Document()
+        .append("_id", getId())
+        .append("name", getName())
+        .append("quantity", getQuantity());
   }
 
   @Override
