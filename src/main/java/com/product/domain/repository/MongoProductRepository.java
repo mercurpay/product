@@ -1,6 +1,5 @@
 package com.product.domain.repository;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
@@ -23,9 +22,6 @@ public class MongoProductRepository implements ProductRepository {
 
   @Inject
   MongoDatabase mongoDatabase;
-
-  @Inject
-  ObjectMapper objectMapper;
 
   @PostConstruct
   public void postConstruct() {
