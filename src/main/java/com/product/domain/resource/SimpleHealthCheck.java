@@ -1,5 +1,6 @@
 package com.product.domain.resource;
 
+import com.mongodb.client.MongoDatabase;
 import io.nats.client.Dispatcher;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -18,11 +19,14 @@ public class SimpleHealthCheck implements HealthCheck {
   @Inject
   Dispatcher dispatcher;
 
+  @Inject
+  MongoDatabase mongoDatabase;
+
   @Override
   public HealthCheckResponse call() {
     log.info("Received a HealthCheck request");
     return HealthCheckResponse.builder()
-        .name("NATS Dispatcher")
+        .name("NATS, MongoDB")
         .up()
         .build();
   }

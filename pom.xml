@@ -65,6 +65,13 @@
       <version>2.9.8</version>
     </dependency>
 
+    <!-- Mongo -->
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver-sync</artifactId>
+      <version>RELEASE</version>
+    </dependency>
+
   </dependencies>
 
   <build>
