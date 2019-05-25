@@ -53,7 +53,8 @@ public class MongoProductRepository implements ProductRepository {
 
   @Override
   public void deleteOne(String id) {
-    // TODO
+    log.info("Deleting product {}", id);
+    productCollection.deleteOne(Filters.eq("_id", id));
   }
 
 }
