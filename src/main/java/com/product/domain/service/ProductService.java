@@ -1,9 +1,10 @@
 package com.product.domain.service;
 
-import com.product.domain.Order;
 import com.product.domain.Product;
+import com.product.domain.event.AnalyzeOrderEvent;
 import com.product.domain.repository.ProductRepository;
 import java.util.Collection;
+import java.util.Optional;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import org.slf4j.Logger;
@@ -17,9 +18,20 @@ public class ProductService {
   @Inject
   ProductRepository productRepository;
 
-  public void analyzeOrder(final Order order) {
-    log.info("Received {} to be analyzed", order);
-    productRepository.deleteAll();
+  public void analyzeOrder(final AnalyzeOrderEvent analyzeOrderEvent) {
+    log.info("Received {} to be analyzed", analyzeOrderEvent);
+    Optional<Product> optionalProduct = Optional.of(get(analyzeOrderEvent.getProductId()));
+    optionalProduct.ifPresent(product -> {
+      Integer quantity = product.getQuantity();
+      if (quantity <= 0) {
+        log.info("Product {} doest not have stock", product.getId());
+        // TODO Call CRM
+      } else {
+        log.info("Subtracting one quantity from product {}", product.getId());
+        product.setQuantity(--quantity);
+        update(product.getId(), product);
+      }
+    });
   }
 
   public Product get(String id) {

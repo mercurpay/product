@@ -1,7 +1,7 @@
 package com.product.infra;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.product.domain.Order;
+import com.product.domain.event.AnalyzeOrderEvent;
 import com.product.domain.service.ProductService;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
@@ -65,8 +65,8 @@ public class NatsConfiguration {
       String data = new String(message.getData(), StandardCharsets.UTF_8);
       try {
         log.info("Received message $data");
-        Order order = objectMapper.readValue(data, Order.class);
-        productService.analyzeOrder(order);
+        AnalyzeOrderEvent analyzeOrderEvent = objectMapper.readValue(data, AnalyzeOrderEvent.class);
+        productService.analyzeOrder(analyzeOrderEvent);
       } catch (Exception e) {
         log.error("Error to analyze {}", data, e);
       }
