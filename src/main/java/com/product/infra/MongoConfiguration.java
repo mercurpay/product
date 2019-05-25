@@ -22,13 +22,13 @@ public class MongoConfiguration {
 
   @Produces
   @Singleton
-  MongoClient test() {
+  MongoClient createMongoClient() {
     return MongoClients.create(mongoUri);
   }
 
   @Produces
   @Singleton
-  MongoDatabase test(MongoClient mongoClient) {
+  MongoDatabase createMongoDatabase(MongoClient mongoClient) {
     return mongoClient.getDatabase(mongoDatabase);
   }
 
