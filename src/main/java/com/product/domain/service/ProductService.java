@@ -2,11 +2,14 @@ package com.product.domain.service;
 
 import com.product.domain.Product;
 import com.product.domain.event.AnalyzeOrderEvent;
+import com.product.domain.event.CrmEvent;
 import com.product.domain.repository.ProductRepository;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +21,10 @@ public class ProductService {
   @Inject
   ProductRepository productRepository;
 
+  @Inject
+  @RestClient
+  CrmService crmService;
+
   public void analyzeOrder(final AnalyzeOrderEvent analyzeOrderEvent) {
     log.info("Received {} to be analyzed", analyzeOrderEvent);
     Optional<Product> optionalProduct = Optional.of(get(analyzeOrderEvent.getProductId()));
@@ -25,7 +32,11 @@ public class ProductService {
       Integer quantity = product.getQuantity();
       if (quantity <= 0) {
         log.info("Product {} doest not have stock", product.getId());
-        // TODO Call CRM
+        CrmEvent crmEvent = new CrmEvent();
+        crmEvent.setType("PRODUCT-UNAVAILABLE");
+        crmEvent.getData().put("at", LocalDateTime.now().toString());
+
+        crmService.notifyEvent(analyzeOrderEvent.getOrderId(), crmEvent);
       } else {
         log.info("Subtracting one quantity from product {}", product.getId());
         product.setQuantity(--quantity);

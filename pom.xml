@@ -36,6 +36,11 @@
 
     <dependency>
       <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-rest-client</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-jsonb</artifactId>
     </dependency>
 
