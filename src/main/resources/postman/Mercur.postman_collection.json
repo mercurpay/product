@@ -40,7 +40,7 @@
 							"raw": "{\n\t\"name\" : \"{{$guid}}\",\n\t\"quantity\" : 3\n}"
 						},
 						"url": {
-							"raw": "http://localhost:9876/api/v1/products",
+							"raw": "http://localhost:9876/api/products",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -48,7 +48,6 @@
 							"port": "9876",
 							"path": [
 								"api",
-								"v1",
 								"products"
 							]
 						}
@@ -87,7 +86,7 @@
 							"raw": "{\n\t\"name\" : \"{{$guid}}\",\n\t\"quantity\" : 5\n}"
 						},
 						"url": {
-							"raw": "http://localhost:9876/api/v1/products/{{productId}}",
+							"raw": "http://localhost:9876/api/products/{{productId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -95,7 +94,6 @@
 							"port": "9876",
 							"path": [
 								"api",
-								"v1",
 								"products",
 								"{{productId}}"
 							]
@@ -123,7 +121,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:9876/api/v1/products/{{productId}}",
+							"raw": "http://localhost:9876/api/products/{{productId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -131,7 +129,6 @@
 							"port": "9876",
 							"path": [
 								"api",
-								"v1",
 								"products",
 								"{{productId}}"
 							]
@@ -159,7 +156,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:9876/api/v1/products",
+							"raw": "http://localhost:9876/api/products",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -167,7 +164,6 @@
 							"port": "9876",
 							"path": [
 								"api",
-								"v1",
 								"products"
 							]
 						}
@@ -191,7 +187,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:9876/api/v1/products/{{productId}}",
+							"raw": "http://localhost:9876/api/products/{{productId}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -199,7 +195,6 @@
 							"port": "9876",
 							"path": [
 								"api",
-								"v1",
 								"products",
 								"{{productId}}"
 							]
@@ -224,7 +219,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:9876/api/v1/products",
+							"raw": "http://localhost:9876/api/products",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -232,7 +227,6 @@
 							"port": "9876",
 							"path": [
 								"api",
-								"v1",
 								"products"
 							]
 						}
@@ -273,10 +267,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\" : \"{{$guid}}\",\n\t\"quantity\" : {{$randomInt}}\n}"
+							"raw": "{\n\t\"name\" : \"{{$guid}}\",\n\t\"quantity\" : 3\n}"
 						},
 						"url": {
-							"raw": "http://localhost:9876/api/v1/products",
+							"raw": "http://localhost:9876/api/products",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -284,7 +278,6 @@
 							"port": "9876",
 							"path": [
 								"api",
-								"v1",
 								"products"
 							]
 						}
