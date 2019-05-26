@@ -28,18 +28,22 @@ public class ProductService {
     log.info("Received {} to be analyzed", analyzeOrderEvent);
     Optional<Product> optionalProduct = Optional.of(get(analyzeOrderEvent.getProductId()));
     optionalProduct.ifPresent(product -> {
+      String crmEventType;
       Integer quantity = product.getQuantity();
+
       if (quantity <= 0) {
         log.info("Product {} doest not have stock", product.getId());
-        CrmEvent crmEvent = new CrmEvent();
-        crmEvent.setType("PRODUCT-UNAVAILABLE");
-
-        crmService.notifyEvent(analyzeOrderEvent.getOrderId(), crmEvent);
+        crmEventType = "PRODUCT-UNAVAILABLE";
       } else {
         log.info("Subtracting one quantity from product {}", product.getId());
+        crmEventType = "PRODUCT-AVAILABLE";
         product.setQuantity(--quantity);
         update(product.getId(), product);
       }
+
+      CrmEvent crmEvent = new CrmEvent();
+      crmEvent.setType(crmEventType);
+      crmService.notifyEvent(analyzeOrderEvent.getOrderId(), crmEvent);
     });
   }
 
