@@ -12,6 +12,16 @@ Product to Test Kubernetes Stuffs
 
 `mvn clean compile quarkus:dev`
 
+# Docker
+
+### Docker JVM
+
+`mvn clean package && docker build -f src/main/docker/Dockerfile.jvm -t larchanjo/product .`
+
+### Docker Native
+
+` mvn package -Pnative -Dnative-image.docker-build=true && docker build -f src/main/docker/Dockerfile.native -t larchanjo/product .`
+
 # Postman
 
 The postman collection is located at `.../src/main/resources/postman`
